@@ -131,6 +131,7 @@ noremap si :set splitright<CR>:vsplit<CR>
 " noremap srh <C-w>b<C-w>K
 " noremap srv <C-w>b<C-w>H
 
+noremap <leader>c :bd<CR>
 
 " ===
 " === Tab management
