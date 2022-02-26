@@ -108,20 +108,20 @@ inoremap <C-a> <ESC>A
 " ===
 
 " Disable the default s key
-noremap s <nop>
+" noremap s <nop>
 
 " noremap <C-w> <C-w>w
-noremap sk <C-w>k
-noremap sj <C-w>j
-noremap sh <C-w>h
-noremap sl <C-w>l
-noremap sf <C-w>o
+" noremap <leader>sr <C-w>k
+" noremap <leader>sj <C-w>j
+" noremap <leader>sh <C-w>h
+" noremap <leader>sl <C-w>l
+" noremap sf <C-w>o
 
 " split the screens to up (horizontal), down (horizontal), left (vertical), right (vertical)
-noremap su :set nosplitbelow<CR>:split<CR>:set splitbelow<CR>
-noremap se :set splitbelow<CR>:split<CR>
-noremap sn :set nosplitright<CR>:vsplit<CR>:set splitright<CR>
-noremap si :set splitright<CR>:vsplit<CR>
+" noremap <leader>su :set nosplitbelow<CR>:split<CR>:set splitbelow<CR>
+" noremap <leader>se :set splitbelow<CR>:split<CR>
+" noremap <leader>sn :set nosplitright<CR>:vsplit<CR>:set splitright<CR>
+" noremap <leader>si :set splitright<CR>:vsplit<CR>
 
 " Place the two screens up and down
 " noremap sh <C-w>t<C-w>K
@@ -219,6 +219,7 @@ Plug 'fatih/vim-go' , { 'for': ['go', 'vim-plug'], 'tag': '*' }
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-surround' " type yskw' to wrap the word with '' or type cs'` to change 'word' to `word`
 Plug 'gcmt/wildfire.vim' " in Visual mode, type k' to select all text in '', or type k) k] k} kp
+Plug 'mg979/vim-visual-multi'
 
 call plug#end()
 
@@ -464,6 +465,26 @@ function g:Undotree_CustomMap()
 	nmap <buffer> N 5<plug>UndotreeNextState
 	nmap <buffer> P 5<plug>UndotreePreviousState
 endfunc
+
+
+" ===
+" === vim-visual-multi
+" ===
+let g:VM_theme             = 'iceblue'
+let g:VM_default_mappings = 0
+let g:VM_leader                     = {'default': ',', 'visual': ',', 'buffer': ','}
+let g:VM_maps                       = {}
+let g:VM_custom_motions             = {'n': 'h', 'i': 'l', 'u': 'k', 'e': 'j', 'N': '0', 'I': '$', 'h': 'e'}
+let g:VM_maps['i']                  = 'k'
+let g:VM_maps['I']                  = 'K'
+let g:VM_maps['Find Under']         = '<C-k>'
+let g:VM_maps['Find Subword Under'] = '<C-k>'
+let g:VM_maps['Find Next']          = ''
+let g:VM_maps['Find Prev']          = ''
+let g:VM_maps['Remove Region']      = 'q'
+let g:VM_maps['Skip Region']        = '<c-n>'
+let g:VM_maps["Undo"]               = 'l'
+let g:VM_maps["Redo"]               = '<C-r>'
 
 
 " ===================== End of Plugin Settings =====================
