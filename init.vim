@@ -100,8 +100,8 @@ noremap <silent> <LEADER>o za
 " ===
 " === Insert Mode Cursor Movement
 " ===
-inoremap <C-a> <ESC>A
-
+inoremap <C-e> <ESC>A
+inoremap <C-a> <ESC>I
 
 " ===
 " === Window management
@@ -211,7 +211,6 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Undo Tree
 Plug 'mbbill/undotree'
 
-
 " Go
 Plug 'fatih/vim-go' , { 'for': ['go', 'vim-plug'], 'tag': '*' }
 
@@ -221,6 +220,9 @@ Plug 'tpope/vim-surround' " type yskw' to wrap the word with '' or type cs'` to 
 Plug 'gcmt/wildfire.vim' " in Visual mode, type k' to select all text in '', or type k) k] k} kp
 Plug 'mg979/vim-visual-multi'
 
+" Git
+Plug 'airblade/vim-gitgutter'
+ 
 call plug#end()
 
 
@@ -275,6 +277,7 @@ noremap <silent> <C-h> :History<CR>
 noremap <C-t> :BTags<CR>
 noremap <silent> <C-l> :Lines<CR>
 noremap <silent> <leader>b :Buffers<CR>
+noremap <silent> <leader>f :Rg<CR>
 noremap <leader>; :History:<CR>
 
 let g:fzf_preview_window = 'right:60%'
@@ -366,12 +369,12 @@ let g:coc_global_extensions = [
 	\ 'coc-vimlsp',
 	\ 'coc-yaml',
 	\ 'coc-yank',
+	\ 'coc-clangd',
 	\ 'https://github.com/rodrigore/coc-tailwind-intellisense']
 inoremap <silent><expr> <TAB>
 	\ pumvisible() ? "\<C-n>" :
 	\ <SID>check_back_space() ? "\<TAB>" :
 	\ coc#refresh()
-
 " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
 " Coc only does snippet and additional edit on confirm.
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
@@ -449,6 +452,7 @@ let g:vista#renderer#icons = {
 \   "function": "\uf794",
 \   "variable": "\uf71b",
 \  }
+
 " function! NearestMethodOrFunction() abort
 " 	return get(b:, 'vista_nearest_method_or_function', '')
 " endfunction
@@ -494,6 +498,26 @@ let g:VM_maps['Remove Region']      = 'q'
 let g:VM_maps['Skip Region']        = '<c-n>'
 let g:VM_maps["Undo"]               = 'l'
 let g:VM_maps["Redo"]               = '<C-r>'
+
+
+" ==
+" == GitGutter
+" ==
+" let g:gitgutter_signs = 0
+let g:gitgutter_sign_allow_clobber = 0
+let g:gitgutter_map_keys = 0
+let g:gitgutter_override_sign_column_highlight = 0
+let g:gitgutter_preview_win_floating = 1
+let g:gitgutter_sign_added = '▎'
+let g:gitgutter_sign_modified = '░'
+let g:gitgutter_sign_removed = '▏'
+let g:gitgutter_sign_removed_first_line = '▔'
+let g:gitgutter_sign_modified_removed = '▒'
+" autocmd BufWritePost * GitGutter
+nnoremap <LEADER>gf :GitGutterFold<CR>
+nnoremap H :GitGutterPreviewHunk<CR>
+nnoremap <LEADER>g- :GitGutterPrevHunk<CR>
+nnoremap <LEADER>g= :GitGutterNextHunk<CR>
 
 
 " ===================== End of Plugin Settings =====================
