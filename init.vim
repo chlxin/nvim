@@ -34,6 +34,7 @@ set wildmenu
 set ignorecase
 set smartcase
 set shortmess+=c
+set cmdheight=2
 set inccommand=split
 set completeopt=longest,noinsert,menuone,noselect,preview
 set ttyfast "should make scrolling faster
@@ -53,7 +54,8 @@ set updatetime=100
 set virtualedit=block
 
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-
+" Autosave buffers before leaving them
+autocmd BufLeave * silent! :wa
 
 " ===
 " === Terminal Behaviors
@@ -89,7 +91,7 @@ nnoremap dy d%
 
 
 " Adjacent duplicate words
-noremap <LEADER>dw /\(\<\w\+\>\)\_s*\1
+" noremap <LEADER>dw /\(\<\w\+\>\)\_s*\1
 
 " Space to Tab
 nnoremap <LEADER>tt :%s/    /\t/g
@@ -132,7 +134,6 @@ inoremap <C-a> <ESC>I
 " noremap srh <C-w>b<C-w>K
 " noremap srv <C-w>b<C-w>H
 
-noremap <leader>c :bd<CR>
 
 " ===
 " === Tab management
@@ -141,8 +142,8 @@ noremap <leader>c :bd<CR>
 noremap tu :tabe<CR>
 noremap tU :tab split<CR>
 " Move around tabs with tn and ti
-noremap tn :-tabnext<CR>
-noremap ti :+tabnext<CR>
+noremap ti :-tabnext<CR>
+noremap tn :+tabnext<CR>
 " Move the tabs with tmn and tmi
 noremap tmn :-tabmove<CR>
 noremap tmi :+tabmove<CR>
@@ -224,7 +225,12 @@ Plug 'mg979/vim-visual-multi'
 " Git
 Plug 'airblade/vim-gitgutter'
 Plug 'APZelos/blamer.nvim'
- 
+
+" chinese input method, only for mac os
+if has("macunix")
+    Plug 'ybian/smartim'
+endif
+
 call plug#end()
 
 
@@ -302,7 +308,7 @@ command! BD call fzf#run(fzf#wrap({
   \ 'options': '--multi --reverse --bind ctrl-a:select-all+accept'
 \ }))
 
-noremap <c-d> :BD<CR>
+" noremap <c-d> :BD<CR>
 
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.8 } }
 
@@ -390,8 +396,30 @@ nmap <leader>rn <Plug>(coc-rename)
 nmap tt :CocCommand explorer<CR>
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
+nnoremap <silent><nowait> <LEADER>d :CocList diagnostics<cr>
+nmap <silent> <leader>- <Plug>(coc-diagnostic-prev)
+nmap <silent> <leader>= <Plug>(coc-diagnostic-next)
+" Remap for do codeAction of selected region
+function! s:cocActionsOpenFromSelected(type) abort
+  execute 'CocCommand actions.open ' . a:type
+endfunction
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+" Use Crtl+d to show documentation in preview window.
+nnoremap <silent> <C-d> :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
 
 " ===
 " === vim-go
@@ -424,6 +452,7 @@ let g:go_highlight_variable_declarations = 0
 let g:go_doc_keywordprg_enabled = 0
 
 let g:coc_sources_disable_map = { 'cs': ['cs', 'cs-1', 'cs-2', 'cs-3'] }
+autocmd FileType go nmap <Leader>gi <Plug>(go-info)
 
 
 " ===
@@ -479,6 +508,9 @@ let g:VM_default_mappings = 0
 let g:VM_leader                     = {'default': ',', 'visual': ',', 'buffer': ','}
 let g:VM_maps                       = {}
 let g:VM_custom_motions             = {'n': 'h', 'i': 'l', 'u': 'k', 'e': 'j', 'N': '0', 'I': '$', 'h': 'e'}
+let g:VM_maps['Add Cursor Down']    = '<M-j>'
+let g:VM_maps['Add Cursor Up']      = '<M-k>'
+let g:VM_maps['Visual Cursors']     = ',,c'
 let g:VM_maps['i']                  = 'k'
 let g:VM_maps['I']                  = 'K'
 let g:VM_maps['Find Under']         = '<C-k>'
@@ -520,6 +552,17 @@ let g:blamer_delay = 500
 let g:blamer_show_in_insert_modes = 0
 let g:blamer_template = '<committer> <committer-time> <summary>'
 let g:blamer_date_format = '%d/%m/%y'
+
+
+" ===
+" === smartim
+" ===
+if has("macunix")
+	let g:smartim_default = 'com.apple.keylayout.ABC'
+endif
+
+
+
 
 " ===================== End of Plugin Settings =====================
 
