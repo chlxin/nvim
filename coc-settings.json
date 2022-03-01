@@ -112,9 +112,8 @@
       "initializationOptions": {}
     }
   },
-  "codeLens.enable": true,
+  "codeLens.enable": false,
   "diagnostic.enable": true,
-  "diagnostic.signOffset": 1,
   "diagnostic.errorSign": "\uf467",
   "diagnostic.warningSign": "\uf071",
   "diagnostic.infoSign": "\uf129",

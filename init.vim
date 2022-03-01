@@ -72,6 +72,7 @@ let mapleader=" "
 noremap ; :
 
 " Save & quit
+noremap Q :q<CR>
 noremap <C-q> :q<CR>
 noremap <C-s> :w<CR>
 
@@ -222,6 +223,7 @@ Plug 'mg979/vim-visual-multi'
 
 " Git
 Plug 'airblade/vim-gitgutter'
+Plug 'APZelos/blamer.nvim'
  
 call plug#end()
 
@@ -508,6 +510,16 @@ nnoremap H :GitGutterPreviewHunk<CR>
 nnoremap <LEADER>g- :GitGutterPrevHunk<CR>
 nnoremap <LEADER>g= :GitGutterNextHunk<CR>
 
+
+" ==
+" == blamer.nvim
+" ==
+
+let g:blamer_enabled = 1
+let g:blamer_delay = 500
+let g:blamer_show_in_insert_modes = 0
+let g:blamer_template = '<committer> <committer-time> <summary>'
+let g:blamer_date_format = '%d/%m/%y'
 
 " ===================== End of Plugin Settings =====================
 
