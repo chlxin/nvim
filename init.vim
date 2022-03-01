@@ -72,8 +72,8 @@ let mapleader=" "
 noremap ; :
 
 " Save & quit
-noremap Q :q<CR>
-noremap W :w<CR>
+noremap <C-q> :q<CR>
+noremap <C-s> :w<CR>
 
 
 " make Y to copy till the end of the line
@@ -339,37 +339,21 @@ let g:rooter_silent_chdir = 1
 " ===
 " === coc.nvim
 " ===
+autocmd FileType json syntax match Comment +\/\/.\+$+
+
 let g:coc_global_extensions = [
-	\ 'coc-css',
-	\ 'coc-diagnostic',
 	\ 'coc-docker',
-	\ 'coc-eslint',
 	\ 'coc-explorer',
-	\ 'coc-flutter-tools',
 	\ 'coc-gitignore',
-	\ 'coc-html',
 	\ 'coc-import-cost',
-	\ 'coc-java',
-	\ 'coc-jest',
 	\ 'coc-json',
 	\ 'coc-lists',
-	\ 'coc-omnisharp',
 	\ 'coc-prettier',
-	\ 'coc-prisma',
-	\ 'coc-pyright',
 	\ 'coc-snippets',
-	\ 'coc-sourcekit',
-	\ 'coc-stylelint',
 	\ 'coc-syntax',
-	\ 'coc-tailwindcss',
 	\ 'coc-tasks',
-	\ 'coc-translator',
-	\ 'coc-tsserver',
-	\ 'coc-vetur',
-	\ 'coc-vimlsp',
 	\ 'coc-yaml',
 	\ 'coc-yank',
-	\ 'coc-clangd',
 	\ 'https://github.com/rodrigore/coc-tailwind-intellisense']
 inoremap <silent><expr> <TAB>
 	\ pumvisible() ? "\<C-n>" :
@@ -400,6 +384,7 @@ nmap <silent> gD :tab sp<CR><Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+nmap <leader>rn <Plug>(coc-rename)
 nmap tt :CocCommand explorer<CR>
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
@@ -452,6 +437,10 @@ let g:vista#renderer#icons = {
 \   "function": "\uf794",
 \   "variable": "\uf71b",
 \  }
+let g:vista_executive_for = {
+  \ 'c': 'ctags',
+  \ 'cpp': 'ctags',
+  \ }
 
 " function! NearestMethodOrFunction() abort
 " 	return get(b:, 'vista_nearest_method_or_function', '')

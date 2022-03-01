@@ -14,10 +14,6 @@
   "explorer.file.column.indent.indentLine": true,
   "explorer.file.showHiddenFiles": true,
   "explorer.icon.enableNerdfont": true,
-  "explorer.file.column.git.showIgnored": true,
-  "explorer.keyMappingMode": "none",
-  "explorer.buffer.showHiddenBuffers": false,
-  "coc.preferences.semanticTokensHighlights": false,
   "coc.preferences.enableFloatHighlight": true,
   "coc.preferences.snippetStatusText": "Ⓢ ",
   "coc.preferences.extensionUpdateCheck": "daily",
@@ -64,17 +60,6 @@
     "value": "\uf89f",
     "variable": "\ue71b"
   },
-  "diagnostic.signOffset": 1,
-  "diagnostic.errorSign": "\uf467",
-  "diagnostic.warningSign": "\uf071",
-  "diagnostic.infoSign": "\uf129",
-  "diagnostic.hintSign": "\uf864",
-  "diagnostic.displayByAle": false,
-  "diagnostic.refreshOnInsertMode": false,
-  "diagnostic.checkCurrentLine": true,
-  "diagnostic.virtualTextPrefix": " ❯❯❯ ",
-  "diagnostic.virtualText": false,
-  "codeLens.enable": true,
   "explorer.keyMappings.global": {
     "k": "nodePrev",
     "j": "nodeNext",
@@ -83,7 +68,7 @@
     "gl": "expandRecursive",
     "gh": "collapseRecursive",
     "i": ["wait", "expandable?", "expand", "open"],
-	"l": ["wait", "expandable?", "expand", "open"],
+    "l": ["wait", "expandable?", "expand", "open"],
     "<cr>": ["wait", "expandable?", "cd", "open"],
     "I": "open:vsplit",
     "o": ["wait", "expanded?", "collapse", "expand"],
@@ -124,8 +109,19 @@
       "command": "gopls",
       "rootPatterns": ["go.mod", ".git/"],
       "filetypes": ["go"],
-      "initializationOptions": {
-      }
+      "initializationOptions": {}
     }
-  }
+  },
+  "codeLens.enable": true,
+  "diagnostic.enable": true,
+  "diagnostic.signOffset": 1,
+  "diagnostic.errorSign": "\uf467",
+  "diagnostic.warningSign": "\uf071",
+  "diagnostic.infoSign": "\uf129",
+  "diagnostic.hintSign": "\uf864",
+  "diagnostic.displayByAle": false,
+  "diagnostic.refreshOnInsertMode": false,
+  "diagnostic.checkCurrentLine": true,
+  "diagnostic.virtualTextPrefix": " ❯❯❯ ",
+  "diagnostic.virtualText": false
 }
