@@ -201,7 +201,8 @@ Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'nvim-treesitter/playground'
 
 " Pretty Dress
-Plug 'theniceboy/nvim-deus'
+" Plug 'theniceboy/nvim-deus'
+Plug 'liuchengxu/space-vim-theme'
 
 " Status line
 Plug 'theniceboy/eleline.vim'
@@ -260,7 +261,8 @@ call plug#end()
 set termguicolors " enable true colors support
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
-color deus
+" color deus
+colorscheme space_vim_theme
 hi NonText ctermfg=gray guifg=grey10
 
 
