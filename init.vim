@@ -85,6 +85,14 @@ nnoremap Y y$
 " Copy to system clipboard
 vnoremap Y "+y
 
+" Copy/Paste/Cut
+if has('macunix')
+  set clipboard=unnamed,unnamedplus
+	" pbcopy for OSX copy/paste
+	" vmap <C-x> :!pbcopy<CR>
+	vmap Y :w !pbcopy<CR><CR>
+endif
+
 
 " Delete find pair
 nnoremap dy d%
@@ -99,6 +107,13 @@ vnoremap <LEADER>tt :s/    /\t/g
 
 " Folding
 noremap <silent> <LEADER>o za
+
+
+" ===
+" === movement
+" ===
+noremap <C-k> 5<C-y>
+noremap <C-j> 5<C-e>
 
 " ===
 " === Insert Mode Cursor Movement
@@ -139,9 +154,12 @@ inoremap <C-a> <ESC>I
 " === Tab management
 " ===
 " Create a new tab with tu
+noremap <silent> <S-t> :tabnew<CR>
 noremap tu :tabe<CR>
 noremap tU :tab split<CR>
 " Move around tabs with tn and ti
+noremap <tab> gt
+noremap <leader><tab> gT
 noremap ti :-tabnext<CR>
 noremap tn :+tabnext<CR>
 " Move the tabs with tmn and tmi
@@ -236,7 +254,6 @@ Plug 'tpope/vim-commentary'
 
 
 
-
 call plug#end()
 
 
@@ -287,9 +304,9 @@ hi illuminatedWord cterm=undercurl gui=undercurl
 " nnoremap <c-p> :Leaderf file<CR>
 noremap <silent> <leader>e :Files<CR>
 " noremap <silent> <C-f> :Rg<CR>
-noremap <silent> <C-h> :History<CR>
+noremap <silent> <M-h> :History<CR>
 noremap <C-t> :BTags<CR>
-noremap <silent> <C-l> :Lines<CR>
+" noremap <silent> <C-l> :Lines<CR>
 noremap <silent> <leader>b :Buffers<CR>
 noremap <silent> <leader>f :Rg<CR>
 noremap <leader>; :History:<CR>
@@ -411,7 +428,7 @@ function! s:cocActionsOpenFromSelected(type) abort
 endfunction
 xmap <leader>a  <Plug>(coc-codeaction-selected)
 " Use Crtl+d to show documentation in preview window.
-nnoremap <silent> <C-d> :call <SID>show_documentation()<CR>
+nnoremap <silent> <M-d> :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
@@ -467,7 +484,8 @@ autocmd FileType go nmap <Leader>gi <Plug>(go-info)
 noremap <LEADER>v :Vista!!<CR>
 noremap <c-t> :silent! Vista finder coc<CR>
 let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
-let g:vista_default_executive = 'coc'
+" let g:vista_icon_indent = ["▸ ", ""]
+let g:vista_default_executive = 'ctags'
 let g:vista_fzf_preview = ['right:50%']
 let g:vista#renderer#enable_icon = 1
 let g:vista#renderer#icons = {
@@ -475,8 +493,7 @@ let g:vista#renderer#icons = {
 \   "variable": "\uf71b",
 \  }
 let g:vista_executive_for = {
-  \ 'c': 'ctags',
-  \ 'cpp': 'ctags',
+  \ 'go': 'coc',
   \ }
 
 " function! NearestMethodOrFunction() abort
@@ -491,7 +508,7 @@ let g:scrollstatus_size = 15
 " ===
 " === Undotree
 " ===
-noremap L :UndotreeToggle<CR>
+noremap <M-l> :UndotreeToggle<CR>
 let g:undotree_DiffAutoOpen = 1
 let g:undotree_SetFocusWhenToggle = 1
 let g:undotree_ShortIndicators = 1
@@ -519,8 +536,8 @@ let g:VM_maps['Add Cursor Up']      = '<M-k>'
 let g:VM_maps['Visual Cursors']     = ',,c'
 " let g:VM_maps['i']                  = 'k'
 " let g:VM_maps['I']                  = 'K'
-let g:VM_maps['Find Under']         = '<C-k>'
-let g:VM_maps['Find Subword Under'] = '<C-k>'
+let g:VM_maps['Find Under']         = '<C-d>'
+let g:VM_maps['Find Subword Under'] = '<C-d>'
 let g:VM_maps['Find Next']          = ''
 let g:VM_maps['Find Prev']          = ''
 " let g:VM_maps['Remove Region']      = 'q'
