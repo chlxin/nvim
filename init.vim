@@ -2,6 +2,8 @@
 " === Editor behavior
 " ===
 
+autocmd BufRead * let &modifiable = !&readonly
+
 set exrc
 set secure
 set number
@@ -77,6 +79,7 @@ noremap ; :
 noremap Q :q<CR>
 noremap <C-q> :q<CR>
 noremap <C-s> :w<CR>
+inoremap <C-s> <Esc>:w<CR>
 
 
 " make Y to copy till the end of the line
@@ -84,15 +87,6 @@ nnoremap Y y$
 
 " Copy to system clipboard
 vnoremap Y "+y
-
-" Copy/Paste/Cut
-if has('macunix')
-  set clipboard=unnamed,unnamedplus
-	" pbcopy for OSX copy/paste
-	" vmap <C-x> :!pbcopy<CR>
-	vmap Y :w !pbcopy<CR><CR>
-endif
-
 
 " Delete find pair
 nnoremap dy d%
@@ -106,7 +100,7 @@ nnoremap <LEADER>tt :%s/    /\t/g
 vnoremap <LEADER>tt :s/    /\t/g
 
 " Folding
-noremap <silent> <LEADER>o za
+" noremap <silent> <LEADER>o za
 
 
 " ===
@@ -154,12 +148,11 @@ inoremap <C-a> <ESC>I
 " === Tab management
 " ===
 " Create a new tab with tu
-noremap <silent> <S-t> :tabnew<CR>
 noremap tu :tabe<CR>
 noremap tU :tab split<CR>
 " Move around tabs with tn and ti
-noremap <tab> gt
-noremap <leader><tab> gT
+noremap tj gt
+noremap tk gT
 noremap ti :-tabnext<CR>
 noremap tn :+tabnext<CR>
 " Move the tabs with tmn and tmi
@@ -215,10 +208,10 @@ Plug 'RRethy/vim-illuminate'
 " File navigation
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-" Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
+Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
 Plug 'kevinhwang91/rnvimr'
 Plug 'airblade/vim-rooter'
-" Plug 'pechorin/any-jump.vim'
+Plug 'pechorin/any-jump.vim'
 
 " Taglist
 Plug 'liuchengxu/vista.vim'
@@ -303,15 +296,32 @@ hi illuminatedWord cterm=undercurl gui=undercurl
 " ===
 " === FZF
 " ===
-" nnoremap <c-p> :Leaderf file<CR>
-noremap <silent> <leader>e :Files<CR>
+nnoremap <silent> <leader>o :Leaderf file<CR>
+" noremap <silent> <leader>e :Files<CR>
 " noremap <silent> <C-f> :Rg<CR>
 noremap <silent> <M-h> :History<CR>
 noremap <C-t> :BTags<CR>
 " noremap <silent> <C-l> :Lines<CR>
 noremap <silent> <leader>b :Buffers<CR>
-noremap <silent> <leader>f :Rg<CR>
-noremap <leader>; :History:<CR>
+" noremap <silent> <leader>f :Rg<CR>
+" noremap <leader>; :History:<CR>
+noremap <leader>ff :LeaderfFunction<CR>
+noremap <leader>ft :Leaderf bufTag<CR>
+
+" don't show the help in normal mode
+let g:Lf_HideHelp = 1
+let g:Lf_UseCache = 0
+let g:Lf_UseVersionControlTool = 0
+let g:Lf_IgnoreCurrentBufferName = 1
+let g:Lf_NormalMap = {
+	\ "File":   [["<ESC>", ':exec g:Lf_py "fileExplManager.quit()"<CR>']],
+	\ "Buffer": [["<ESC>", ':exec g:Lf_py "bufExplManager.quit()"<CR>']],
+	\ "Mru":    [["<ESC>", ':exec g:Lf_py "mruExplManager.quit()"<CR>']],
+	\ "Tag":    [["<ESC>", ':exec g:Lf_py "tagExplManager.quit()"<CR>']],
+	\ "Function":    [["<ESC>", ':exec g:Lf_py "functionExplManager.quit()"<CR>']],
+	\ "Colorscheme":    [["<ESC>", ':exec g:Lf_py "colorschemeExplManager.quit()"<CR>']],
+	\ "BufTag" : [["<ESC>", ':exec g:Lf_py "bufTagExplManager.quit()"<CR>']],
+	\ }
 
 let g:fzf_preview_window = 'right:60%'
 let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
@@ -430,7 +440,7 @@ function! s:cocActionsOpenFromSelected(type) abort
 endfunction
 xmap <leader>a  <Plug>(coc-codeaction-selected)
 " Use Crtl+d to show documentation in preview window.
-nnoremap <silent> <M-d> :call <SID>show_documentation()<CR>
+nnoremap <silent> <leader>p :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
