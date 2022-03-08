@@ -211,7 +211,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
 Plug 'kevinhwang91/rnvimr'
 Plug 'airblade/vim-rooter'
-Plug 'pechorin/any-jump.vim'
+" Plug 'pechorin/any-jump.vim'
 
 " Taglist
 Plug 'liuchengxu/vista.vim'
@@ -307,6 +307,7 @@ noremap <silent> <leader>b :Buffers<CR>
 " noremap <leader>; :History:<CR>
 noremap <leader>ff :LeaderfFunction<CR>
 noremap <leader>ft :Leaderf bufTag<CR>
+noremap <silent> <leader>fg :Rg<CR>
 
 " don't show the help in normal mode
 let g:Lf_HideHelp = 1
