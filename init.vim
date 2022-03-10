@@ -87,6 +87,8 @@ nnoremap Y y$
 
 " Copy to system clipboard
 vnoremap Y "+y
+" only use clipboard
+set clipboard+=unnamedplus
 
 " Delete find pair
 nnoremap dy d%
@@ -106,6 +108,8 @@ vnoremap <LEADER>tt :s/    /\t/g
 " ===
 " === movement
 " ===
+noremap <C-b> <nop>
+noremap <C-f> <nop>
 noremap <C-k> 5<C-y>
 noremap <C-j> 5<C-e>
 
@@ -151,8 +155,8 @@ inoremap <C-a> <ESC>I
 noremap tu :tabe<CR>
 noremap tU :tab split<CR>
 " Move around tabs with tn and ti
-noremap tj gt
-noremap tk gT
+noremap tk gt
+noremap tj gT
 noremap ti :-tabnext<CR>
 noremap tn :+tabnext<CR>
 " Move the tabs with tmn and tmi
@@ -170,7 +174,7 @@ nnoremap \t :tabe<CR>:-tabmove<CR>:term sh -c 'st'<CR><C-\><C-N>:q<CR>
 noremap <LEADER>/ :set splitbelow<CR>:split<CR>:res +10<CR>:term<CR>
 
 " Press space twice to jump to the next '<++>' and edit it
-noremap <LEADER><LEADER> <Esc>/<++><CR>:nohlsearch<CR>c4l
+" noremap <LEADER><LEADER> <Esc>/<++><CR>:nohlsearch<CR>c4l
 
 " Spelling Check with <space>sc
 noremap <LEADER>sc :set spell!<CR>
@@ -237,11 +241,6 @@ Plug 'mg979/vim-visual-multi'
 " Git
 Plug 'airblade/vim-gitgutter'
 Plug 'APZelos/blamer.nvim'
-
-" chinese input method, only for mac os
-if has("macunix")
-    Plug 'ybian/smartim'
-endif
 
 " Comments
 Plug 'tpope/vim-commentary'
@@ -413,12 +412,12 @@ function! s:check_back_space() abort
 endfunction
 
 " Text Objects
-xmap kf <Plug>(coc-funcobj-i)
+xmap if <Plug>(coc-funcobj-i)
 xmap af <Plug>(coc-funcobj-a)
-omap kf <Plug>(coc-funcobj-i)
+omap if <Plug>(coc-funcobj-i)
 omap af <Plug>(coc-funcobj-a)
-xmap kc <Plug>(coc-classobj-i)
-omap kc <Plug>(coc-classobj-i)
+xmap ic <Plug>(coc-classobj-i)
+omap ic <Plug>(coc-classobj-i)
 xmap ac <Plug>(coc-classobj-a)
 omap ac <Plug>(coc-classobj-a)
 " Useful commands
@@ -588,16 +587,6 @@ let g:blamer_delay = 500
 let g:blamer_show_in_insert_modes = 0
 let g:blamer_template = '<committer> <committer-time> <summary>'
 let g:blamer_date_format = '%d/%m/%y'
-
-
-" ===
-" === smartim
-" ===
-if has("macunix")
-	let g:smartim_default = 'com.apple.keylayout.ABC'
-endif
-
-
 
 
 " ===================== End of Plugin Settings =====================
